@@ -15,9 +15,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: temp
-      POSTGRES_PASSWORD: temp
-      POSTGRES_DB: advcompro
+      POSTGRES_USER: anpoodgay
+      POSTGRES_PASSWORD: gayanpood
+      POSTGRES_DB: classroomprog
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

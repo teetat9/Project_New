@@ -1,8 +1,8 @@
 from databases import Database
 
-POSTGRES_USER = "temp"
-POSTGRES_PASSWORD = "temp"
-POSTGRES_DB = "advcompro"
+POSTGRES_USER = "anpoodgay"
+POSTGRES_PASSWORD = "gayanpood"
+POSTGRES_DB = "classroomprog"
 POSTGRES_HOST = "db"
 
 DATABASE_URL = f'postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}'

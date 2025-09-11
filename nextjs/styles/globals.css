@@ -1,26 +1,19 @@
-@font-face {
-  font-family: 'Prompt';
-  src: url('/Prompt/Prompt-Regular.ttf') format('truetype'),
-       url('/Prompt/Prompt-Medium.ttf') format('truetype'),
-       url('/Prompt/Prompt-Light.ttf') format('truetype'),
-       url('/Prompt/Prompt-Thin.ttf') format('truetype')
-  ;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.swal2-popup {
-  font-size: 1rem !important;
-  font-family: 'Prompt';
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --font-family: 'Roboto', sans-serif;
+  --bg: #0b1020;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-family); /* Apply the font globally */
-  background-color: rgb(255, 255, 255);
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900;
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4;
 }

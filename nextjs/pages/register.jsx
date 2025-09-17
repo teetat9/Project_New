@@ -8,17 +8,55 @@ export default function RegisterPage() {
     password: "",
     confirm: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  // Use env var if present, otherwise localhost
+  const API = "http://localhost:8000/api";
 
   const handleChange = (e) =>
     setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Simple client validation
+    if (!form.username || !form.email || !form.password || !form.confirm) {
+      alert("Please fill in all fields.");
+      return;
+    }
     if (form.password !== form.confirm) {
       alert("Passwords do not match");
       return;
     }
-    alert(`Registering ${form.username} / ${form.email}`);
+
+    try {
+      setLoading(true);
+      const res = await fetch(`${API}/users/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // Backend expects: email, password, name
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+          name: form.username, // map your "username" input to DB "name"
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        // Backend sends {"detail": "..."} on error
+        throw new Error(data.detail || "Registration failed");
+      }
+
+      alert("Success! Account created.");
+      // Reset form & go to login
+      setForm({ username: "", email: "", password: "", confirm: "" });
+      window.location.href = "/login";
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +86,7 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Right form column (no box, just fields) */}
+          {/* Right form column */}
           <div className="flex items-start md:items-center">
             <form
               onSubmit={handleSubmit}
@@ -122,9 +160,10 @@ export default function RegisterPage() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full bg-green-600 hover:bg-green-700 text-white font-semibold px-6 h-10 shadow-md"
+                  disabled={loading}
+                  className="inline-flex items-center justify-center rounded-full bg-green-600 hover:bg-green-700 text-white font-semibold px-6 h-10 shadow-md disabled:opacity-60"
                 >
-                  SIGN IN
+                  {loading ? "Creating..." : "SIGN IN"}
                 </button>
 
                 <p className="mt-3 text-sm text-gray-700">

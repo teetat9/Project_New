@@ -1,4 +1,9 @@
-fastapi[standard]
-uvicorn
-databases[asyncpg]
-pydantic
+fastapi
+uvicorn[standard]
+databases[postgresql]
+asyncpg
+pydantic>=2.6
+passlib[bcrypt]==1.7.4
+bcrypt<4
+python-dotenv
+email-validator
